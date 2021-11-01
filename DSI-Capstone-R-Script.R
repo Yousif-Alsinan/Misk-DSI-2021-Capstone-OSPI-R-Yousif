@@ -20,3 +20,16 @@ head(ospi)
 str(ospi)
 
 summary(ospi)
+
+summary(ospi$Revenue)
+
+ospi <- ospi %>%
+  mutate(RevenueBi = ifelse(Revenue == "FALSE",0,1))
+
+hist(ospi$RevenueBi)
+
+summary(ospi$RevenueBi)
+
+colSums(is.na(ospi))
+
+colSums(ospi == "")
