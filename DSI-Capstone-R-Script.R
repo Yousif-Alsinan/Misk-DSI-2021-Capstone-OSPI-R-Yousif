@@ -17,6 +17,16 @@ library(rpart)
 ospi %>%
   explore_all()
 
+explore(ospi)
+
+ospi %>% explain_tree(target = Revenue)
+
+ospi %>% explore_tbl()
+
+ospi %>% explore(Revenue)
+
+ospi %>% describe()
+
 ncol(ospi)
 
 nrow(ospi)
@@ -151,6 +161,8 @@ ggplot(data = month_tab, aes(x = Month, y = perc, fill = Revenue)) +
   xlab("Month")+
   ylab("Percent")
 
+# Data Prep
+
 ospi$OperatingSystems <- factor(ospi$OperatingSystems, order = TRUE, levels = c(6,3,7,1,5,2,4,8))
 ospi$Browser <- factor(ospi$Browser, order = TRUE, levels = c(9,3,6,7,1,2,8,11,4,5,10,13,12))
 ospi$Region <- factor(ospi$Region, order = TRUE, levels = c(8,6,3,4,7,1,5,2,9))
@@ -165,10 +177,6 @@ ospi$VisitorType_Numeric <-mapvalues(ospi$VisitorType, from = c("Returning_Visit
 
 ospi <- ospi %>%
   mutate(Weekend_binary = ifelse(Weekend == "FALSE",0,1))
-
-normalize <- function(x) {
-  return ((x - min(x)) / (max(x) - min(x)))
-}
 
 ospi_norm <- ospi
 
@@ -295,5 +303,4 @@ recall_dt
 
 F1_dt<- 2*presicion_dt*recall_dt/(presicion_dt+recall_dt)
 F1_dt
-
 
